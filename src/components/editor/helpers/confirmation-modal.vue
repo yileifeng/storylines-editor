@@ -9,23 +9,20 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
+import { Prop, Vue } from 'vue-property-decorator';
 
-@Component({
-    components: {}
-})
 export default class MetadataEditorV extends Vue {
     @Prop() message!: string;
     @Prop() name!: string;
 
     onOk(): void {
         this.$emit('Ok');
-        this.$modals.hide(this.name);
+        // this.$modals.hide(this.name);
     }
 
     onCancel(): void {
         this.$emit('Cancel');
-        this.$modals.hide(this.name);
+        // this.$modals.hide(this.name);
     }
 }
 </script>

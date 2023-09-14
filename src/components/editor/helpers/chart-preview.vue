@@ -60,7 +60,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
+import { Options, Prop, Vue } from 'vue-property-decorator';
 import {
     ChartConfig,
     ConfigFileStructure,
@@ -69,11 +69,11 @@ import {
     PieDataRow,
     PieSeriesData
 } from '@/definitions';
-import ChartV from '@/components/panels/helpers/chart.vue';
 
-@Component({
+@Options({
     components: {
-        'dqv-chart': ChartV
+        // TODO: fix when storylines plugin updated to Vue 3
+        // 'dqv-chart': ChartV
     }
 })
 export default class ChartPreviewV extends Vue {

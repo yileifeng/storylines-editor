@@ -59,16 +59,16 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
+import { Options, Prop, Vue } from 'vue-property-decorator';
 import { ChartConfig, ChartPanel, ConfigFileStructure, Highchart, SourceCounts } from '@/definitions';
-import ChartPanelV from '@/components/panels/chart-panel.vue';
 import ChartPreviewV from '@/components/editor/helpers/chart-preview.vue';
 import ConfirmationModalV from '@/components/editor/helpers/confirmation-modal.vue';
 import draggable from 'vuedraggable';
 
-@Component({
+@Options({
     components: {
-        'chart-panel': ChartPanelV,
+        // TODO: fix when storylines plugin updated to Vue 3
+        // 'chart-panel': ChartPanelV,
         ChartPreview: ChartPreviewV,
         'confirmation-modal': ConfirmationModalV,
         draggable
@@ -219,7 +219,7 @@ export default class ChartEditorV extends Vue {
 
     onChartsEdited(): void {
         this.edited = true;
-        this.$parent.$emit('slide-edit');
+        this.$emit('slide-edit');
     }
 }
 </script>
