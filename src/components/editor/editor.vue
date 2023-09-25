@@ -128,7 +128,7 @@
                 :sourceCounts="sourceCounts"
             ></slide-editor>
         </div>
-        <slot name="metadataModal"></slot>
+        <!-- <slot name="metadataModal"></slot> -->
         <!-- <confirmation-modal
             :name="`reload-config`"
             :message="$t('editor.refreshChanges.modal')"
