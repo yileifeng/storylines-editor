@@ -189,18 +189,6 @@ import EditorV from './editor.vue';
 
 import cloneDeep from 'clone-deep';
 
-interface RouteParams {
-    uid: string;
-    configLang: string;
-    configs: {
-        [key: string]: StoryRampConfig | undefined;
-    };
-    configFileStructure: ConfigFileStructure;
-    metadata: MetadataContent;
-    slides: Slide[];
-    sourceCounts: SourceCounts;
-}
-
 @Options({
     components: {
         Editor: EditorV,
@@ -272,19 +260,15 @@ export default class MetadataEditorV extends Vue {
         // Find which view to render based on route
         if (this.$route.name === 'editor') {
             this.loadEditor = true;
+            const props = window.history.state.props;
 
             // Properties already passed in props, load editor view (could use a refactor to clean up this workflow process)
-            if (this.$route.params.configs && this.$route.params.configFileStructure) {
-                // declare props typing to get around TS warnings
-                const route = this.$route as RouteLocationNormalized & {
-                    params: RouteParams;
-                };
-
-                this.configs = route.params.configs;
-                this.configFileStructure = route.params.configFileStructure;
-                this.metadata = route.params.metadata;
-                this.slides = route.params.slides;
-                this.sourceCounts = route.params.sourceCounts;
+            if (JSON.parse(props.configs) && JSON.parse(props.configFileStructure)) {
+                this.configs = JSON.parse(props.configs);
+                this.configFileStructure = JSON.parse(props.configFileStructure);
+                this.metadata = JSON.parse(props.metadata);
+                this.slides = JSON.parse(props.slides);
+                this.sourceCounts = JSON.parse(props.sourceCounts);
 
                 // Load product logo (if provided).
                 const logo = this.configs[this.configLang]?.introSlide.logo?.src;
@@ -784,16 +768,15 @@ export default class MetadataEditorV extends Vue {
     updateEditorPath(): void {
         if (this.$route.name !== 'editor') {
             const props = {
-                uid: this.uuid,
                 configLang: this.configLang,
-                configs: this.configs,
-                configFileStructure: this.configFileStructure,
-                sourceCounts: this.sourceCounts,
-                metadata: this.metadata,
-                slides: this.slides
+                configs: JSON.stringify(this.configs),
+                configFileStructure: JSON.stringify(this.configFileStructure),
+                sourceCounts: JSON.stringify(this.sourceCounts),
+                metadata: JSON.stringify(this.metadata),
+                slides: JSON.stringify(this.slides)
             } as unknown as RouteParamsRaw;
 
-            this.$router.push({ name: 'editor', params: props });
+            this.$router.push({ name: 'editor', params: { uid: this.uuid }, state: { props } });
         }
     }
 
