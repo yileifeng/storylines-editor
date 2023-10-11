@@ -9,20 +9,30 @@
     <div v-else-if="loadStatus === 'loaded'">
         <div class="storyramp-app bg-white" v-if="config !== undefined">
             <header class="sticky top-0 z-50 flex border-b border-black bg-gray-200 py-2 px-2 justify-between">
-                <div class="w-mobile-full truncate">
-                    <span class="font-semibold text-lg m-1">{{ config.title }}</span>
+                <div class="flex w-full sm:px-6 py-3 mx-auto">
+                    <!-- <storylines-mobile-toc
+                        class="mobile-menu"
+                        :active-chapter-index="activeChapterIndex"
+                        :slides="config.slides"
+                        :lang="lang"
+                        :plugin="true"
+                    /> -->
+                    <div class="w-mobile-full truncate">
+                        <span class="font-semibold text-lg m-1">{{ config.title }}</span>
+                    </div>
                 </div>
             </header>
 
-            <!-- <introduction :config="config.introSlide" :configFileStructure="configFileStructure"></introduction> -->
+            <storylines-intro :config="config.introSlide" :configFileStructure="configFileStructure" />
 
             <div class="w-full mx-auto pb-10" id="story">
-                <!-- <StoryContentV
+                <storylines-content
                     :config="config"
                     :configFileStructure="configFileStructure"
                     :lang="lang"
+                    :plugin="true"
                     @step="updateActiveIndex"
-                /> -->
+                />
             </div>
 
             <footer class="p-8 pt-2 text-right text-sm">
@@ -142,6 +152,16 @@ $font-list: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
     .w-mobile-full {
         width: 80%;
+    }
+}
+
+@media screen and (min-width: 640px) {
+    .mobile-menu {
+        display: none !important;
+    }
+
+    .w-mobile-full {
+        width: 100% !important;
     }
 }
 
