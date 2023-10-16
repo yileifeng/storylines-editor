@@ -21,6 +21,7 @@
                     :config="config"
                     :configFileStructure="configFileStructure"
                     :lang="lang"
+                    :editor="true"
                     @step="updateActiveIndex"
                 />
             </div>
