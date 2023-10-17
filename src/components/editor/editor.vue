@@ -255,9 +255,7 @@ export default class EditorV extends Vue {
     saveChanges(): void {
         // save current slide final changes before generating config file
         if (this.$refs.slide !== undefined) {
-            this.$nextTick(() => {
-                (this.$refs.slide as SlideEditorV).saveChanges();
-            });
+            (this.$refs.slide as SlideEditorV).saveChanges();
         }
 
         // emit save changes event
